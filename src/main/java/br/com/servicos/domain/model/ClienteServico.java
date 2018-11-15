@@ -18,13 +18,11 @@ public class ClienteServico {
     @Column(name = "id")
     private Long id;
 
-    @JsonIgnore
     @NotNull
     @JoinColumn(name="fk_servico", referencedColumnName = "id", nullable = false)
     @ManyToOne
     private Servico servico;
 
-    @JsonIgnore
     @NotNull
     @JoinColumn(name="fk_cliente", referencedColumnName = "id", nullable = false)
     @ManyToOne

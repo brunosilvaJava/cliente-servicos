@@ -1,32 +1,37 @@
 $(document).ready(function () {
 
-    $('#btnSalvarCliente').on("click", function (e) {
+    var servicos = [];
+
+    $('#btnSalvarServicoCliente').on("click", function (e) {
         e.stopPropagation();
 
-        var obj = new Object();
-        obj.nome = $("#nomeCliente").val();
-        obj.cpf = $("#cpfCLiente").val();
-        obj.tipoDesconto = parseInt($("#tipoDesconto").val());
-
         $.ajax({
-            url: url + "/api/clientes",
+            url: url + "/api/clientes/"+$("#cliente option:selected").val()+"/servicos/",
             type: 'POST',
-            dataType: 'json',
             contentType: "application/json; charset=UTF-8",
-            data: JSON.stringify(obj),
+            data: JSON.stringify(servicos),
             success: function (retorno) {
-                console.log(retorno);
+                servicos = [];
+                $('#tbServicosCliente > tbody').html("");
             },
             error: function (xhr, textStatus, thrownError) {
                 console.log(thrownError);
             }
         });
 
+
+
     });
 
     $('#btnAddServico').on("click", function () {
 
+        var clienteObj = new Object();
+        clienteObj.id = $("#cliente option:selected").val();
+
+        var servicoObj = new Object();
         var servico = $("#servico option:selected");
+        servicoObj.id = servico.val();
+
         var valor = parseFloat(servico.attr("data-valor"));
         var dataInicial = $("#dataInicial").val();
         var dataFinal = $("#dataFinal").val();
@@ -40,13 +45,15 @@ $(document).ready(function () {
             .append('<td>'+valor+'</td>')
             .append('</tr>');
 
+        var clienteServico = new Object();
+        clienteServico.cliente = clienteObj;
+        clienteServico.servico = servicoObj;
+        clienteServico.dataInicio = new Date(dataInicial);
+        clienteServico.dataFim = new Date(dataFinal);
+        clienteServico.valor = valor;
+
+        servicos.push(clienteServico);
+
     });
 
-
-
 });
-
-function toDate(textDate) {
-    var values = $(textDate).val().split("/")
-    return new Date(values[2], values[1] - 1, values[0])
-}

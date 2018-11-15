@@ -14,7 +14,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<h1>Cliente</h1>
+<h1>Serviços - Cliente</h1>
 
 <div>
     <form id="formClienteSalvar">
@@ -59,7 +59,7 @@
                     <thead>
                         <tr>
                             <th style="display: none">id</th>
-                            <th>Nome</th>
+                            <th>Servico</th>
                             <th>Data Início</th>
                             <th>Data Fim</th>
                             <th>Valor</th>
@@ -71,7 +71,7 @@
             </div>
 
             <div class="col fltLeft wid50">
-                <input id="btnSalvarCliente" type="button" value="Salvar"/>
+                <input id="btnSalvarServicoCliente" type="button" value="Salvar"/>
             </div>
 
         </div>

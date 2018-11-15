@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 
@@ -52,6 +53,11 @@ public class ClienteResource {
 
     @PostMapping(value = "/{id}/servicos", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> postServicos(@PathVariable final Long id, @RequestBody @Valid final List<ClienteServico> clienteServicos){
+
+        clienteServicos.forEach(cs -> {
+            cs.setValorPago(BigDecimal.ZERO);
+            cs.setPago(Boolean.FALSE);
+        });
 
         clienteServicoService.saveAll(clienteServicos);
 
